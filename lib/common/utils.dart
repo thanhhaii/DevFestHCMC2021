@@ -3,14 +3,15 @@ import 'dart:collection';
 
 import 'package:table_calendar/table_calendar.dart';
 
-/// Example event class.
 class Event {
   final String title;
+  final double money;
+  final bool isPay;
+  final DateTime date;
+  final String userUID;
 
-  const Event(this.title);
+  Event(this.title, this.money, this.isPay, this.date, this.userUID);
 
-  @override
-  String toString() => title;
 }
 
 /// Example events.
@@ -24,11 +25,10 @@ final kEvents = LinkedHashMap<DateTime, List<Event>>(
 final _kEventSource = Map.fromIterable(List.generate(50, (index) => index),
     key: (item) => DateTime.utc(kFirstDay.year, kFirstDay.month, item * 5),
     value: (item) => List.generate(
-        item % 4 + 1, (index) => Event('Event $item | ${index + 1}')))
+        item % 4 + 1, (index) => Event('Tien An',30000,true,DateTime.parse("20211206"),"q8Uc07e0eSTDkygN3KVwKkYRKxL2")))
   ..addAll({
     kToday: [
-      Event('Today\'s Event 1'),
-      Event('Today\'s Event 2'),
+      Event('Tien An',30000,true,DateTime.parse("20211206"),"q8Uc07e0eSTDkygN3KVwKkYRKxL2")
     ],
   });
 
