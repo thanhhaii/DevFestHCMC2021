@@ -10,7 +10,7 @@ class SaveMoneyProvider with ChangeNotifier{
   List<MoneySave> lsMoneySave = [];
   Future<void> getUserDataById() async{
     dynamic currentUser = FirebaseAuth.instance.currentUser;
-    QuerySnapshot snapshot = await FirebaseFirestore.instance.doc(currentUser.uid).collection("MoneySave").get();
+    QuerySnapshot snapshot = await FirebaseFirestore.instance.doc("a9TIlX1NeBKPnyrfDeNO").collection("MoneySave").get();
     for (var element in snapshot.docs) {
 
       }

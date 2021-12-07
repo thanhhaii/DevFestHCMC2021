@@ -154,7 +154,7 @@ class _SignUpState extends State<SignUp>{
                           width: double.infinity,
                           child: RaisedButton(
                               child: const Text("Login with Guest"),color: Colors.blueGrey[400],onPressed: (){
-                            validation();
+                            registWithGuest();
                           })
                       )
                     ],
