@@ -1,14 +1,14 @@
-
 import 'package:flutter/material.dart';
 
+import 'components/reason_detail.dart';
 import 'components/table_basic.dart';
 
-class HomePage extends StatefulWidget  {
+class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage>{
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,6 +17,7 @@ class _HomePageState extends State<HomePage>{
       ),
       body: TableBasic(
       ),
+
     );
   }
 }
