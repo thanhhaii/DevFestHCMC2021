@@ -1,0 +1,83 @@
+{
+  "project_info": {
+    "project_number": "131631608272",
+    "firebase_url": "https://hellofirebase-2b731.firebaseio.com",
+    "project_id": "hellofirebase-2b731",
+    "storage_bucket": "hellofirebase-2b731.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:131631608272:android:6bedf2fe2e89ebebb989d5",
+        "android_client_info": {
+          "package_name": "com.example.devfestproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "131631608272-94e4qk3tfr6t3bentapg4l5j1udirapq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB6KJyOYMLZiWfZYGQb9fDJUrJbQMiNmCs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "131631608272-94e4qk3tfr6t3bentapg4l5j1udirapq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "131631608272-i911qhf5rr2jq224u3ua353cpk1tj2ej.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "devfest.moneysave.finalProjectDevfest"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:131631608272:android:1500948844fdfd1ab989d5",
+        "android_client_info": {
+          "package_name": "devfest.moneysave.final_project_devfest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "131631608272-94e4qk3tfr6t3bentapg4l5j1udirapq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB6KJyOYMLZiWfZYGQb9fDJUrJbQMiNmCs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "131631608272-94e4qk3tfr6t3bentapg4l5j1udirapq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "131631608272-i911qhf5rr2jq224u3ua353cpk1tj2ej.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "devfest.moneysave.finalProjectDevfest"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
