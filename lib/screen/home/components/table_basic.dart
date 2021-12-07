@@ -1,7 +1,9 @@
 import 'dart:collection';
 
 import 'package:final_project_devfest/common/utils.dart';
+import 'package:final_project_devfest/model/moneysave.dart';
 import 'package:final_project_devfest/provider/savemoney_provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -137,6 +139,8 @@ class _TableBasicState extends State<TableBasic> {
                       ),
                       child: ListTile(
                         onTap: (){
+                          dynamic currentUser = FirebaseAuth.instance.currentUser;
+                          dynamic savemoney = MoneySave("Hello",43000, true, DateTime.now(),currentUser.uid);
                         saveMoneyProvider.getUserDataById();
                         },
                         title: Text('${value[index]}'),

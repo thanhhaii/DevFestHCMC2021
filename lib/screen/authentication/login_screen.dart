@@ -1,5 +1,6 @@
 import 'package:final_project_devfest/common/validate.dart';
 import 'package:final_project_devfest/screen/authentication/signup_screen.dart';
+import 'package:final_project_devfest/screen/home/home_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -78,7 +79,12 @@ class _LoginState extends State<Login>{
                           height: 45,
                           width: double.infinity,
                           child: RaisedButton(
-                              child: const Text("Register"),color: Colors.blueGrey[400],onPressed: (){
+                              child: const Text("Login"),color: Colors.blueGrey[400],onPressed: (){
+                            Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                builder: (ctx) => HomePage(),
+                              ),
+                            );
                           })
                       ),
                       Row(
