@@ -74,13 +74,21 @@ class _SignUpState extends State<SignUp>{
                     children: <Widget>[
                       TextFormField(
                         validator: (value){
-                          if(value!.length<9){
-                            return "Phone number must be more 9 number";
+                          if(value == ""){
+                            return "Please fill email";
                           }
+                          // else if(!Validate.checkValidate(Validate.emailValidate, value)){
+                          //   return "Email is invalid";
+                          // }
+                        },
+                        onChanged: (value){
+                          setState(() {
+                            username = value;
+                          });
                         },
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(),
-                          hintText: "Phone number",
+                          hintText: "Email",
                           hintStyle: TextStyle(
                               color: Colors.black
                           ),
