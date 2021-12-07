@@ -1,3 +1,4 @@
+import 'package:final_project_devfest/screen/action/action.dart';
 import 'package:flutter/material.dart';
 import 'package:final_project_devfest/screen/home/home_screen.dart';
 void main() {
@@ -11,10 +12,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Money Save',
       theme: ThemeData(
-
         primarySwatch: Colors.blue,
       ),
-      home: HomePage(),
+      home: const Scaffold(
+        body: ActionPage(),
+      ),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
