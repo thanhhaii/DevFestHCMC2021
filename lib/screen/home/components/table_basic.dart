@@ -9,8 +9,9 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-
 class TableBasic extends StatefulWidget {
+  TableBasic({Key? key}) : super(key: key);
+
   @override
   _TableBasicState createState() => _TableBasicState();
 }
@@ -24,11 +25,12 @@ class _TableBasicState extends State<TableBasic> {
   DateTime? _selectedDay;
   DateTime? _rangeStart;
   DateTime? _rangeEnd;
+  dynamic money;
+
 
   @override
   void initState() {
     super.initState();
-
     _selectedDay = _focusedDay;
     _selectedEvents = ValueNotifier(_getEventsForDay(_selectedDay!));
   }
@@ -88,7 +90,8 @@ class _TableBasicState extends State<TableBasic> {
 
   @override
   Widget build(BuildContext context) {
-    SaveMoneyProvider saveMoneyProvider = Provider.of<SaveMoneyProvider>(context);
+    SaveMoneyProvider saveMoneyProvider =
+        Provider.of<SaveMoneyProvider>(context);
     return Scaffold(
       body: Column(
         children: [
@@ -125,6 +128,7 @@ class _TableBasicState extends State<TableBasic> {
             child: ValueListenableBuilder<List<Event>>(
               valueListenable: _selectedEvents,
               builder: (context, value, _) {
+
                 return ListView.builder(
                   itemCount: value.length,
                   itemBuilder: (context, index) {
@@ -138,12 +142,17 @@ class _TableBasicState extends State<TableBasic> {
                         borderRadius: BorderRadius.circular(12.0),
                       ),
                       child: ListTile(
-                        onTap: (){
-                          dynamic currentUser = FirebaseAuth.instance.currentUser;
-                          dynamic savemoney = MoneySave("Hello",43000, true, DateTime.now(),currentUser.uid);
-                        saveMoneyProvider.getUserDataById();
+                        onTap: () {
+                          dynamic currentUser =
+                              FirebaseAuth.instance.currentUser;
+                          // savemoney = MoneySave("Hello",43000, true, DateTime.now(),currentUser.uid);
+                          saveMoneyProvider.getUserDataById();
                         },
-                        title: Text('${value[index]}'),
+
+                        title:
+
+                          Text( value[index].title+": " + '${value[index].money}'
+                            ),
                       ),
                     );
                   },
