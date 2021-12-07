@@ -16,7 +16,7 @@ class TableBasic extends StatefulWidget {
 }
 
 class _TableBasicState extends State<TableBasic> {
-  late final ValueNotifier<List<MoneySave>> _selectedEvents;
+  late final ValueNotifier<List<Event>> _selectedEvents;
   CalendarFormat _calendarFormat = CalendarFormat.month;
   RangeSelectionMode _rangeSelectionMode = RangeSelectionMode
       .toggledOff; // Can be toggled on/off by longpressing a date
@@ -24,12 +24,11 @@ class _TableBasicState extends State<TableBasic> {
   DateTime? _selectedDay;
   DateTime? _rangeStart;
   DateTime? _rangeEnd;
-  List<MoneySave> _lsMoneySave=[];
+
   @override
   void initState() {
     super.initState();
-    SaveMoneyProvider saveMoneyProvider = new SaveMoneyProvider();
-    _lsMoneySave = saveMoneyProvider.lsMoneySave;
+
     _selectedDay = _focusedDay;
     _selectedEvents = ValueNotifier(_getEventsForDay(_selectedDay!));
   }
@@ -40,14 +39,17 @@ class _TableBasicState extends State<TableBasic> {
     super.dispose();
   }
 
+  List<Event> _getEventsForDay(DateTime day) {
+    // Implementation example
+    return kEvents[day] ?? [];
+  }
 
-
-  List<MoneySave> _getEventsForRange(DateTime start, DateTime end) {
+  List<Event> _getEventsForRange(DateTime start, DateTime end) {
     // Implementation example
     final days = daysInRange(start, end);
 
     return [
-      // for (final d in days) ..._getEventsForDay(d),
+      for (final d in days) ..._getEventsForDay(d),
     ];
   }
 
@@ -61,7 +63,7 @@ class _TableBasicState extends State<TableBasic> {
         _rangeSelectionMode = RangeSelectionMode.toggledOff;
       });
 
-      // _selectedEvents.value = _getEventsForDay(selectedDay);
+      _selectedEvents.value = _getEventsForDay(selectedDay);
     }
   }
 
@@ -77,10 +79,10 @@ class _TableBasicState extends State<TableBasic> {
     // `start` or `end` could be null
     if (start != null && end != null) {
       _selectedEvents.value = _getEventsForRange(start, end);
-    // } else if (start != null) {
-    //   _selectedEvents.value = _getEventsForDay(start);
-    // } else if (end != null) {
-    //   _selectedEvents.value = _getEventsForDay(end);
+    } else if (start != null) {
+      _selectedEvents.value = _getEventsForDay(start);
+    } else if (end != null) {
+      _selectedEvents.value = _getEventsForDay(end);
     }
   }
 
@@ -91,16 +93,16 @@ class _TableBasicState extends State<TableBasic> {
     saveMoneyProvider.getUserDataById();
     lsMoneySave = saveMoneyProvider.lsMoneySave;
     print("total :"+ lsMoneySave.length.toString() );
-    Map<DateTime, List<MoneySave>> data = SaveMoneyProvider.setData(lsMoneySave);
-    final kEvents = LinkedHashMap<DateTime, List<MoneySave>>(
-      equals: isSameDay,
-      hashCode: getHashCode,
-    )..addAll(data);
-
-    List<Event>? _getEventsForDay(DateTime day) {
-    // Implementation example
-    return kEvents[day] ?? [];
-    }
+    // Map<DateTime, List<MoneySave>> data = SaveMoneyProvider.setData(lsMoneySave);
+    // final kEvents = LinkedHashMap<DateTime, List<MoneySave>>(
+    //   equals: isSameDay,
+    //   hashCode: getHashCode,
+    // )..addAll(data);
+    //
+    // List<Event>? _getEventsForDay(DateTime day) {
+    // // Implementation example
+    // return kEvents[day] ?? [];
+    // }
     return Scaffold(
       body: Column(
         children: [
@@ -133,7 +135,7 @@ class _TableBasicState extends State<TableBasic> {
           ),
           const SizedBox(height: 8.0),
           Expanded(
-            child: ValueListenableBuilder<List<MoneySave>>(
+            child: ValueListenableBuilder<List<Event>>(
               valueListenable: _selectedEvents,
               builder: (context, value, _) {
                 return ListView.builder(
