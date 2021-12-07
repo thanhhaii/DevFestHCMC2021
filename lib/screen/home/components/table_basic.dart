@@ -40,17 +40,14 @@ class _TableBasicState extends State<TableBasic> {
     super.dispose();
   }
 
-  List<MoneySave> _getEventsForDay(DateTime day) {
-    // Implementation example
-    return kEvents[day] ?? [];
-  }
+
 
   List<MoneySave> _getEventsForRange(DateTime start, DateTime end) {
     // Implementation example
     final days = daysInRange(start, end);
 
     return [
-      for (final d in days) ..._getEventsForDay(d),
+      // for (final d in days) ..._getEventsForDay(d),
     ];
   }
 
@@ -64,7 +61,7 @@ class _TableBasicState extends State<TableBasic> {
         _rangeSelectionMode = RangeSelectionMode.toggledOff;
       });
 
-      _selectedEvents.value = _getEventsForDay(selectedDay);
+      // _selectedEvents.value = _getEventsForDay(selectedDay);
     }
   }
 
@@ -80,10 +77,10 @@ class _TableBasicState extends State<TableBasic> {
     // `start` or `end` could be null
     if (start != null && end != null) {
       _selectedEvents.value = _getEventsForRange(start, end);
-    } else if (start != null) {
-      _selectedEvents.value = _getEventsForDay(start);
-    } else if (end != null) {
-      _selectedEvents.value = _getEventsForDay(end);
+    // } else if (start != null) {
+    //   _selectedEvents.value = _getEventsForDay(start);
+    // } else if (end != null) {
+    //   _selectedEvents.value = _getEventsForDay(end);
     }
   }
 
@@ -93,8 +90,17 @@ class _TableBasicState extends State<TableBasic> {
     List<MoneySave> lsMoneySave =  [];
     saveMoneyProvider.getUserDataById();
     lsMoneySave = saveMoneyProvider.lsMoneySave;
-    Map data = SaveMoneyProvider.setData(lsMoneySave);
-    print("Total"+ lsMoneySave.length.toString());
+    print("total :"+ lsMoneySave.length.toString() );
+    Map<DateTime, List<MoneySave>> data = SaveMoneyProvider.setData(lsMoneySave);
+    final kEvents = LinkedHashMap<DateTime, List<MoneySave>>(
+      equals: isSameDay,
+      hashCode: getHashCode,
+    )..addAll(data);
+
+    List<Event>? _getEventsForDay(DateTime day) {
+    // Implementation example
+    return kEvents[day] ?? [];
+    }
     return Scaffold(
       body: Column(
         children: [
@@ -107,7 +113,7 @@ class _TableBasicState extends State<TableBasic> {
             rangeEndDay: _rangeEnd,
             calendarFormat: _calendarFormat,
             rangeSelectionMode: _rangeSelectionMode,
-            eventLoader: _getEventsForDay,
+            // eventLoader: _getEventsForDay,
             startingDayOfWeek: StartingDayOfWeek.monday,
             calendarStyle: CalendarStyle(
               outsideDaysVisible: false,

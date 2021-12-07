@@ -19,20 +19,7 @@ class Event {
 /// Example events.
 ///
 /// Using a [LinkedHashMap] is highly recommended if you decide to use a map.
-final kEvents = LinkedHashMap<DateTime, List<MoneySave>>(
-  equals: isSameDay,
-  hashCode: getHashCode,
-)..addAll(_kEventSource);
 
-final _kEventSource = Map.fromIterable(List.generate(50, (index) => index),
-    key: (item) => DateTime.utc(kFirstDay.year, kFirstDay.month, item * 5),
-    value: (item) => List.generate(
-        item % 4 + 1, (index) => Event('Tien An',30000,true,DateTime.parse("20211206"),"q8Uc07e0eSTDkygN3KVwKkYRKxL2")))
-  ..addAll({
-    kToday: [
-      Event('Tien An',30000,true,DateTime.parse("20211206"),"q8Uc07e0eSTDkygN3KVwKkYRKxL2")
-    ],
-  });
 
 int getHashCode(DateTime key) {
   return key.day * 1000000 + key.month * 10000 + key.year;

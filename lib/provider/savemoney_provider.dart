@@ -14,7 +14,7 @@ class SaveMoneyProvider with ChangeNotifier{
   Future<void> getUserDataById() async{
     List<MoneySave> rs = [];
     dynamic currentUser = FirebaseAuth.instance.currentUser;
-    dynamic docs = await FirebaseFirestore.instance.collection("MoneySave").doc("a9TIlX1NeBKPnyrfDeNO").get();
+    dynamic docs = await FirebaseFirestore.instance.collection("MoneySave").doc("tD2uuNwXlLN63kmn6NzvsQttIqL2").get();
     Map map = Map<String, dynamic>.from(docs.data());
     for(int i=0; i<map.length;i++){
       rs.add(MoneySave(map.entries.toList()[i].value["title"], double.parse(map.entries.toList()[i].value["money"]), map.entries.toList()[i].value["isPay"], map.entries.toList()[i].value["date"].toDate(),map.entries.toList()[i].value["userUID"]));
@@ -49,38 +49,22 @@ static Future<void> deleteUserData(MoneySave moneySave, String docId) async{
   }
 }
 static dynamic setData(List<MoneySave> lsMoneySave){
-    Map mapMoneySave = new Map();
+  Map<DateTime, List<MoneySave>> mapMoneySave = Map();
     for(int i = 0; i< lsMoneySave.length;i++){
-      var time = lsMoneySave[i].date;
-      var tempData = [];
-      if (lsMoneySave[i] != null) {
-        for(int j = 0; j< lsMoneySave.length;j++){
-          var item = lsMoneySave[j];
-          if(item.date == time){
-            tempData.add(item);
-            lsMoneySave.remove(item);
-          }
+      var time =lsMoneySave[i].date;
+      List<MoneySave> tempData = [];
+      for(int j = 1; j< lsMoneySave.length;j++){
+        var item = lsMoneySave[j];
+        if(item.date == time){
+          tempData.add(item);
+          lsMoneySave.remove(j);
         }
-        Map map = {time:tempData};
-        return mapMoneySave.addAll(map);
-        }
+        Map<DateTime, List<MoneySave>> map = {time:tempData};
+        mapMoneySave.addAll(map);
+      }
+      return mapMoneySave;
+
     }
   }
 
-
-  @override
-
-  List<MoneySave> _getEventsForDay(DateTime day) {
-    // Implementation example
-    return kEvents[day] ?? [];
-  }
-
-  List<MoneySave> _getEventsForRange(DateTime start, DateTime end) {
-    // Implementation example
-    final days = daysInRange(start, end);
-
-    return [
-      for (final d in days) ..._getEventsForDay(d),
-    ];
-  }
 }
