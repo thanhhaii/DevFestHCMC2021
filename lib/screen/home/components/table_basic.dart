@@ -1,8 +1,10 @@
 import 'dart:collection';
 
 import 'package:final_project_devfest/common/utils.dart';
+import 'package:final_project_devfest/provider/savemoney_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 
@@ -84,6 +86,7 @@ class _TableBasicState extends State<TableBasic> {
 
   @override
   Widget build(BuildContext context) {
+    SaveMoneyProvider saveMoneyProvider = Provider.of<SaveMoneyProvider>(context);
     return Scaffold(
       body: Column(
         children: [
@@ -133,7 +136,9 @@ class _TableBasicState extends State<TableBasic> {
                         borderRadius: BorderRadius.circular(12.0),
                       ),
                       child: ListTile(
-                        onTap: () => print('${value[index]}'),
+                        onTap: (){
+                        saveMoneyProvider.getUserDataById();
+                        },
                         title: Text('${value[index]}'),
                       ),
                     );
