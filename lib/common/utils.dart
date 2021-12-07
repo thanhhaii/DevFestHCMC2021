@@ -1,6 +1,8 @@
 
 import 'dart:collection';
 
+import 'package:final_project_devfest/model/moneysave.dart';
+import 'package:final_project_devfest/provider/savemoney_provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class Event {
@@ -17,7 +19,7 @@ class Event {
 /// Example events.
 ///
 /// Using a [LinkedHashMap] is highly recommended if you decide to use a map.
-final kEvents = LinkedHashMap<DateTime, List<Event>>(
+final kEvents = LinkedHashMap<DateTime, List<MoneySave>>(
   equals: isSameDay,
   hashCode: getHashCode,
 )..addAll(_kEventSource);

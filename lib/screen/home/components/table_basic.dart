@@ -16,7 +16,7 @@ class TableBasic extends StatefulWidget {
 }
 
 class _TableBasicState extends State<TableBasic> {
-  late final ValueNotifier<List<Event>> _selectedEvents;
+  late final ValueNotifier<List<MoneySave>> _selectedEvents;
   CalendarFormat _calendarFormat = CalendarFormat.month;
   RangeSelectionMode _rangeSelectionMode = RangeSelectionMode
       .toggledOff; // Can be toggled on/off by longpressing a date
@@ -24,11 +24,12 @@ class _TableBasicState extends State<TableBasic> {
   DateTime? _selectedDay;
   DateTime? _rangeStart;
   DateTime? _rangeEnd;
-
+  List<MoneySave> _lsMoneySave=[];
   @override
   void initState() {
     super.initState();
-
+    SaveMoneyProvider saveMoneyProvider = new SaveMoneyProvider();
+    _lsMoneySave = saveMoneyProvider.lsMoneySave;
     _selectedDay = _focusedDay;
     _selectedEvents = ValueNotifier(_getEventsForDay(_selectedDay!));
   }
@@ -39,12 +40,12 @@ class _TableBasicState extends State<TableBasic> {
     super.dispose();
   }
 
-  List<Event> _getEventsForDay(DateTime day) {
+  List<MoneySave> _getEventsForDay(DateTime day) {
     // Implementation example
     return kEvents[day] ?? [];
   }
 
-  List<Event> _getEventsForRange(DateTime start, DateTime end) {
+  List<MoneySave> _getEventsForRange(DateTime start, DateTime end) {
     // Implementation example
     final days = daysInRange(start, end);
 
@@ -89,10 +90,15 @@ class _TableBasicState extends State<TableBasic> {
   @override
   Widget build(BuildContext context) {
     SaveMoneyProvider saveMoneyProvider = Provider.of<SaveMoneyProvider>(context);
+    List<MoneySave> lsMoneySave =  [];
+    saveMoneyProvider.getUserDataById();
+    lsMoneySave = saveMoneyProvider.lsMoneySave;
+    Map data = SaveMoneyProvider.setData(lsMoneySave);
+    print("Total"+ lsMoneySave.length.toString());
     return Scaffold(
       body: Column(
         children: [
-          TableCalendar<Event>(
+          TableCalendar<MoneySave>(
             firstDay: kFirstDay,
             lastDay: kLastDay,
             focusedDay: _focusedDay,
@@ -104,7 +110,6 @@ class _TableBasicState extends State<TableBasic> {
             eventLoader: _getEventsForDay,
             startingDayOfWeek: StartingDayOfWeek.monday,
             calendarStyle: CalendarStyle(
-              // Use `CalendarStyle` to customize the UI
               outsideDaysVisible: false,
             ),
             onDaySelected: _onDaySelected,
@@ -122,7 +127,7 @@ class _TableBasicState extends State<TableBasic> {
           ),
           const SizedBox(height: 8.0),
           Expanded(
-            child: ValueListenableBuilder<List<Event>>(
+            child: ValueListenableBuilder<List<MoneySave>>(
               valueListenable: _selectedEvents,
               builder: (context, value, _) {
                 return ListView.builder(
@@ -141,7 +146,6 @@ class _TableBasicState extends State<TableBasic> {
                         onTap: (){
                           dynamic currentUser = FirebaseAuth.instance.currentUser;
                           dynamic savemoney = MoneySave("Hello",43000, true, DateTime.now(),currentUser.uid);
-                        saveMoneyProvider.getUserDataById();
                         },
                         title: Text('${value[index]}'),
                       ),
