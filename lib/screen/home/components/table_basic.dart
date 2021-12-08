@@ -89,10 +89,24 @@ class _TableBasicState extends State<TableBasic> {
   @override
   Widget build(BuildContext context) {
     SaveMoneyProvider saveMoneyProvider = Provider.of<SaveMoneyProvider>(context);
+    List<MoneySave> lsMoneySave =  [];
+    saveMoneyProvider.getUserDataById();
+    lsMoneySave = saveMoneyProvider.lsMoneySave;
+    print("total :"+ lsMoneySave.length.toString() );
+    // Map<DateTime, List<MoneySave>> data = SaveMoneyProvider.setData(lsMoneySave);
+    // final kEvents = LinkedHashMap<DateTime, List<MoneySave>>(
+    //   equals: isSameDay,
+    //   hashCode: getHashCode,
+    // )..addAll(data);
+    //
+    // List<Event>? _getEventsForDay(DateTime day) {
+    // // Implementation example
+    // return kEvents[day] ?? [];
+    // }
     return Scaffold(
       body: Column(
         children: [
-          TableCalendar<Event>(
+          TableCalendar<MoneySave>(
             firstDay: kFirstDay,
             lastDay: kLastDay,
             focusedDay: _focusedDay,
@@ -101,10 +115,9 @@ class _TableBasicState extends State<TableBasic> {
             rangeEndDay: _rangeEnd,
             calendarFormat: _calendarFormat,
             rangeSelectionMode: _rangeSelectionMode,
-            eventLoader: _getEventsForDay,
+            // eventLoader: _getEventsForDay,
             startingDayOfWeek: StartingDayOfWeek.monday,
             calendarStyle: CalendarStyle(
-              // Use `CalendarStyle` to customize the UI
               outsideDaysVisible: false,
             ),
             onDaySelected: _onDaySelected,
@@ -141,7 +154,6 @@ class _TableBasicState extends State<TableBasic> {
                         onTap: (){
                           dynamic currentUser = FirebaseAuth.instance.currentUser;
                           dynamic savemoney = MoneySave("Hello",43000, true, DateTime.now(),currentUser.uid);
-                        saveMoneyProvider.getUserDataById();
                         },
                         title: Text('${value[index]}'),
                       ),
